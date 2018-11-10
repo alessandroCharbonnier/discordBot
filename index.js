@@ -40,7 +40,7 @@ process.on('SIGINT', () => {
 });
 
 // connect the bot
-bot.login(token);
+bot.login(token).catch(reason => console.log(reason));
 
 // log that the bot is ready (optionnal)
 bot.once('ready', () => {
