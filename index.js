@@ -15,6 +15,9 @@ const profs = ['Patoch', 'MHR', 'Pierre', 'Denis',
 // channels that will be affected by the bot
 const channels = ['CHAUSSURE', 'e-sport', 'programmation'];
 
+// channels that are ignored
+const blackList = ['CHASSE LE CARIBOU'];
+
 // create a new channel with the noun of the parent category with a random name and place that channel in the appropriate category
 function createNewChannel(newMember, newUserChannel) {
   try {
@@ -54,21 +57,21 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
 
     if (oldUserChannel === undefined && newUserChannel !== undefined) {
 			// User Joins a voice channel
-			if (channels.includes(newUserChannel.name)) {
+			if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
 				createNewChannel(newMember, newUserChannel);
 			}
     } else if (newUserChannel === undefined) {
 			// User leaves a voice channel	
-      if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.array.length === 0) {
+			if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.array.length === 0 && !blackList.includes(newUserChannel.name)) {
         oldUserChannel.delete();				
       }
     } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
 			// User moved channel
-			if (oldUserChannel.members.array.length === 0 && !channels.includes(oldUserChannel.name)) {
+			if (oldUserChannel.members.array.length === 0 && !channels.includes(oldUserChannel.name) && !blackList.includes(newUserChannel.name)) {
 				oldUserChannel.delete();				
       }
       
-			if (channels.includes(newUserChannel.name)) {
+			if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
 			  createNewChannel(newMember, newUserChannel);
 			}
 		}
