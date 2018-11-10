@@ -49,7 +49,7 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
 				createNewChannel(newMember, newUserChannel);
 			}
     } else if (newUserChannel === undefined) {
-				// User leaves a voice channel	
+			// User leaves a voice channel	
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.array.length === 0) {
         oldUserChannel.delete();				
       }
