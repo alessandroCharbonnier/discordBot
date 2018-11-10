@@ -34,9 +34,9 @@ function createNewChannel(newMember, newUserChannel) {
 
 // properlly exit the program is the user hits ctrl+c
 process.on('SIGINT', () => {
-    console.log('Good bye!');
-    bot.destroy();
-    process.exit();
+  console.log('Good bye!');
+  bot.destroy();
+  process.exit();
 });
 
 // connect the bot
@@ -44,37 +44,37 @@ bot.login(token).catch(reason => console.log(reason));
 
 // log that the bot is ready (optionnal)
 bot.once('ready', () => {
-    console.log('Ready!');
+  console.log('Ready!');
 });
 
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
-    member.addRoles(['499314917711675393', '366669559341645856']);
+  member.addRoles(['499314917711675393', '366669559341645856']);
 });
 
 // when a user join/quit/move channel
 bot.on('voiceStateUpdate', (oldMember, newMember) => {
-    let newUserChannel = newMember.voiceChannel;
-    let oldUserChannel = oldMember.voiceChannel;
+  let newUserChannel = newMember.voiceChannel;
+  let oldUserChannel = oldMember.voiceChannel;
 
-    if (oldUserChannel === undefined && newUserChannel !== undefined) {
-			// User Joins a voice channel
-			if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
-				createNewChannel(newMember, newUserChannel);
-			}
-    } else if (newUserChannel === undefined) {
-      // User leaves a voice channel
-        if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
-          oldUserChannel.delete();
-        }
-    } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
-			// User moved channel
-        if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
-          oldUserChannel.delete();
-        }
+  if (oldUserChannel === undefined && newUserChannel !== undefined) {
+    // User Joins a voice channel
+    if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
+      createNewChannel(newMember, newUserChannel);
+    }
+  } else if (newUserChannel === undefined) {
+    // User leaves a voice channel
+      if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
+        oldUserChannel.delete();
+      }
+  } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
+    // User moved channel
+      if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
+        oldUserChannel.delete();
+      }
 
-			if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
-			  createNewChannel(newMember, newUserChannel);
-			}
-		}
+    if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
+      createNewChannel(newMember, newUserChannel);
+    }
+  }
 });
