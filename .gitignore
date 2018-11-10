@@ -65,3 +65,6 @@ typings/
 
 #config.json to protect token
 config.json
+
+#package.json
+package.json
