@@ -10,7 +10,7 @@ const profs = ['Patoch', 'MHR', 'Pierre', 'Denis',
                'Selma', 'Zina', 'Patricia', 'Oleg', 'Jeremy',
                'Sandrine', 'Regis', 'Anne-Gaelle', 'Miembro',
                'Regine', 'Jaen-Francois', 'Bibone', 'Frederic',
-               'A-preciser', 'Fabrice'];
+               'A-preciser', 'Fabrice', 'Walid'];
 
 // channels that will be affected by the bot
 const channels = ['CHAUSSURE', 'e-sport', 'programmation'];
