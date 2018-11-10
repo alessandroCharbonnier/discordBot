@@ -61,16 +61,16 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
 				createNewChannel(newMember, newUserChannel);
 			}
     } else if (newUserChannel === undefined) {
-			// User leaves a voice channel	
-			if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.array.length === 0 && !blackList.includes(oldUserChannel.name)) {
-        oldUserChannel.delete();				
-      }
+      // User leaves a voice channel
+        if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
+          oldUserChannel.delete();
+        }
     } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
 			// User moved channel
-			if (oldUserChannel.members.array.length === 0 && !channels.includes(oldUserChannel.name) && !blackList.includes(oldUserChannel.name)) {
-				oldUserChannel.delete();				
-      }
-      
+        if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
+          oldUserChannel.delete();
+        }
+
 			if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
 			  createNewChannel(newMember, newUserChannel);
 			}
