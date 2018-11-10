@@ -25,7 +25,10 @@ function createNewChannel(newMember, newUserChannel) {
 
     newMember.guild.createChannel(name, 'voice').then((cc, tc, vc) => {
       cc.setParent(newUserChannel.parentID);
+      console.log('created channel ' + name);
       newMember.setVoiceChannel(cc);
+      console.log('moved ' + newMember.displayName);
+      
     });
   } catch (err) { 
     console.error(err);
@@ -40,7 +43,7 @@ process.on('SIGINT', () => {
 });
 
 // connect the bot
-bot.login(token).catch(reason => console.log(reason));
+bot.login(token).catch(err => console.log(err));
 
 // log that the bot is ready (optionnal)
 bot.once('ready', () => {
@@ -50,6 +53,7 @@ bot.once('ready', () => {
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
   member.addRoles(['499314917711675393', '366669559341645856']);
+  console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to ' + member.displayName);
 });
 
 // when a user join/quit/move channel
@@ -65,12 +69,14 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
   } else if (newUserChannel === undefined) {
     // User leaves a voice channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
-        oldUserChannel.delete();
+        oldUserChannel.delete()
+          .then(console.log('deleted ' + oldUserChannel.name));
       }
   } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
     // User moved channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
-        oldUserChannel.delete();
+        oldUserChannel.delete()
+          .then(console.log('deleted ' + oldUserChannel.name));;
       }
 
     if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
