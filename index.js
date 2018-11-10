@@ -27,7 +27,9 @@ function createNewChannel(newMember, newUserChannel) {
       cc.setParent(newUserChannel.parentID);
       newMember.setVoiceChannel(cc);
     });
-  } catch (e) { }
+  } catch (err) { 
+    console.error(err);
+  }
 }
 
 // properlly exit the program is the user hits ctrl+c
