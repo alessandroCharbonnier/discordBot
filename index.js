@@ -55,7 +55,7 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
 
   if (oldUserChannel === undefined && newUserChannel !== undefined) {
     // User Joins a voice channel
-    if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
+    if (channels.includes(newUserChannel.name)) {
       createNewChannel(newMember, newUserChannel);
     }
   } else if (newUserChannel === undefined) {
