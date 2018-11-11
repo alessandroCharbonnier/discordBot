@@ -66,5 +66,8 @@ typings/
 #config.json to protect token
 config.json
 
-#package.json
-package.json
+#packages
+package*
+
+#node_modules
+node_modules
