@@ -33,7 +33,7 @@ process.on('SIGINT', () => {
 bot.login(token).catch(err => console.log(err));
 
 // log that the bot is ready (optionnal)
-bot.once('ready', console.log('Ready!'));
+bot.once('ready', () => console.log('Ready!'));
 
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
