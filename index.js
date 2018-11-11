@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 //loading config file
-const { prefix, token, profs, channels, blackList } = require('./config.json');
+const { prefix, token, profs, channels, blackList, roles} = require('./config.json');
 
 // create a new channel with the noun of the parent category with a random name and place that channel in the appropriate category
 function createNewChannel(newMember, newUserChannel) {
@@ -37,7 +37,7 @@ bot.once('ready', () => console.log('Ready!'));
 
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
-  member.addRoles(['499314917711675393', '366669559341645856'])
+  member.addRoles(roles)
     .then(console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to \'' + member.displayName + '\''))
     .catch(err => console.log(err));
 });

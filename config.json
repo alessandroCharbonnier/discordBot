@@ -7,5 +7,6 @@
                "Regine", "Jaen-Francois", "Bibone", "Frederic",
                "A-preciser", "Fabrice", "Walid"],
     "channels": ["CHAUSSURE", "e-sport", "programmation"],
-    "blackList": ["CHASSE LE CARIBOU"]
+    "blackList": ["CHASSE LE CARIBOU"],
+    "roles": ["499314917711675393", "366669559341645856"]
 }
