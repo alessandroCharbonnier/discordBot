@@ -1,4 +1,11 @@
 {
     "prefix": ":",
-    "token": "cake is a lie"
+    "token": "cake is a lie",
+    "profs": ["Patoch", "MHR", "Pierre", "Denis", "Annabelle", "Luc", "Florent", "Didier",
+               "Selma", "Zina", "Patricia", "Oleg", "Jeremy",
+               "Sandrine", "Regis", "Anne-Gaelle", "Miembro",
+               "Regine", "Jaen-Francois", "Bibone", "Frederic",
+               "A-preciser", "Fabrice", "Walid"],
+    "channels": ["CHAUSSURE", "e-sport", "programmation"],
+    "blackList": ["CHASSE LE CARIBOU"]
 }

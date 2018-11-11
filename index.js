@@ -2,21 +2,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 //loading config file
-const { prefix, token } = require('./config.json');
-
-// array of nouns used to generate new channels
-const profs = ['Patoch', 'MHR', 'Pierre', 'Denis',
-               'Annabelle', 'Luc', 'Florent', 'Didier',
-               'Selma', 'Zina', 'Patricia', 'Oleg', 'Jeremy',
-               'Sandrine', 'Regis', 'Anne-Gaelle', 'Miembro',
-               'Regine', 'Jaen-Francois', 'Bibone', 'Frederic',
-               'A-preciser', 'Fabrice', 'Walid'];
-
-// channels that will be affected by the bot
-const channels = ['CHAUSSURE', 'e-sport', 'programmation'];
-
-// channels that are ignored
-const blackList = ['CHASSE LE CARIBOU'];
+const { prefix, token, profs, channels, blackList } = require('./config.json');
 
 // create a new channel with the noun of the parent category with a random name and place that channel in the appropriate category
 function createNewChannel(newMember, newUserChannel) {
@@ -25,9 +11,9 @@ function createNewChannel(newMember, newUserChannel) {
 
     newMember.guild.createChannel(name, 'voice').then((cc, tc, vc) => {
       cc.setParent(newUserChannel.parentID);
-      console.log('created channel ' + name);
+      console.log('created channel \'' + name + '\'');
       newMember.setVoiceChannel(cc);
-      console.log('moved ' + newMember.displayName);
+      console.log('moved \'' + newMember.displayName + '\'');
       
     });
   } catch (err) { 
@@ -53,7 +39,7 @@ bot.once('ready', () => {
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
   member.addRoles(['499314917711675393', '366669559341645856']);
-  console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to ' + member.displayName);
+  console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to \'' + member.displayName + '\'');
 });
 
 // when a user join/quit/move channel
@@ -70,13 +56,13 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
     // User leaves a voice channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
         oldUserChannel.delete()
-          .then(console.log('deleted ' + oldUserChannel.name));
+          .then(console.log('deleted \'' + oldUserChannel.name + '\''));
       }
   } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
     // User moved channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
         oldUserChannel.delete()
-          .then(console.log('deleted ' + oldUserChannel.name));;
+          .then(console.log('deleted \'' + oldUserChannel.name + '\''));
       }
 
     if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
