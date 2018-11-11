@@ -4,8 +4,8 @@
     "profs": ["Patoch", "MHR", "Pierre", "Denis", "Annabelle", "Luc", "Florent", "Didier",
                "Selma", "Zina", "Patricia", "Oleg", "Jeremy",
                "Sandrine", "Regis", "Anne-Gaelle", "Miembro",
-               "Regine", "Jaen-Francois", "Bibone", "Frederic",
-               "A-preciser", "Fabrice", "Walid", "Quentin"],
+               "Regine", "Jean-Francois", "Bibone", "Frederic",
+               "A-preciser", "Fabrice", "Walid", "Quentin", "William", "intervenant 2"],
     "channels": ["CHAUSSURE", "e-sport", "programmation"],
     "blackList": ["CHASSE LE CARIBOU"],
     "roles": ["499314917711675393", "366669559341645856"]
