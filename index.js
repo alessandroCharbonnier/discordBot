@@ -10,14 +10,12 @@ function createNewChannel(newMember, newUserChannel) {
   try {
     let name = newUserChannel.name + '-' + profs[Math.floor(Math.random() * profs.length)];
 
-    newMember.guild.createChannel(name, 'voice').then((cc, tc, vc) => {
-      cc.setParent(newUserChannel.parentID);
+    newMember.guild.createChannel(name, {type : 'voice' , parent : newUserChannel.parentID}).then((channel) => {
       console.log('created channel '.green + '\''+ colors.cyan(name) + '\'');
-      newMember.setVoiceChannel(cc);
+      newMember.setVoiceChannel(channel);
       console.log('moved '.yellow + '\'' + colors.blue(newMember.displayName) + '\'' + ' in '.yellow + '\'' + colors.cyan(name) + '\'');
-      
     });
-  } catch (err) { 
+  } catch (err) {
     console.error(err);
   }
 }
