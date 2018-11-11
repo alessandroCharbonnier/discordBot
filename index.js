@@ -23,8 +23,9 @@ function createNewChannel(newMember, newUserChannel) {
 
 // properlly exit the program is the user hits ctrl+c
 process.on('SIGINT', () => {
-  console.log('Good bye!');
-  bot.destroy();
+  bot.destroy()
+    .then(console.log('Good bye'))
+    .catch(err => console.log(err));
   process.exit();
 });
 
