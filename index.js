@@ -33,14 +33,13 @@ process.on('SIGINT', () => {
 bot.login(token).catch(err => console.log(err));
 
 // log that the bot is ready (optionnal)
-bot.once('ready', () => {
-  console.log('Ready!');
-});
+bot.once('ready', console.log('Ready!'));
 
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
-  member.addRoles(['499314917711675393', '366669559341645856']);
-  console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to \'' + member.displayName + '\'');
+  member.addRoles(['499314917711675393', '366669559341645856'])
+    .then(console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to \'' + member.displayName + '\''))
+    .catch(err => console.log(err));
 });
 
 // when a user join/quit/move channel
@@ -57,13 +56,15 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
     // User leaves a voice channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
         oldUserChannel.delete()
-          .then(console.log('deleted \'' + oldUserChannel.name + '\''));
+          .then(console.log('deleted \'' + oldUserChannel.name + '\''))
+          .catch(err => console.log(err));
       }
   } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
     // User moved channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
         oldUserChannel.delete()
-          .then(console.log('deleted \'' + oldUserChannel.name + '\''));
+          .then(console.log('deleted \'' + oldUserChannel.name + '\''))
+          .catch(err => console.log(err));
       }
 
     if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
