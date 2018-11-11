@@ -1,3 +1,4 @@
+const colors = require('colors');
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
@@ -11,9 +12,9 @@ function createNewChannel(newMember, newUserChannel) {
 
     newMember.guild.createChannel(name, 'voice').then((cc, tc, vc) => {
       cc.setParent(newUserChannel.parentID);
-      console.log('created channel \'' + name + '\'');
+      console.log('created channel '.green + '\''+ colors.cyan(name) + '\'');
       newMember.setVoiceChannel(cc);
-      console.log('moved \'' + newMember.displayName + '\'');
+      console.log('moved '.yellow + '\'' + colors.blue(newMember.displayName) + '\'' + ' in '.yellow + '\'' + colors.cyan(name) + '\'');
       
     });
   } catch (err) { 
@@ -21,10 +22,17 @@ function createNewChannel(newMember, newUserChannel) {
   }
 }
 
+// delete a voice channel
+function deleteChannel(oldUserChannel) {
+  oldUserChannel.delete()
+    .then(console.log('deleted channel '.red + '\'' + colors.cyan(oldUserChannel.name) + '\''))
+    .catch(err => console.log(err));
+}
+
 // properlly exit the program is the user hits ctrl+c
 process.on('SIGINT', () => {
   bot.destroy()
-    .then(console.log('Good bye'))
+    .then(console.log('Good bye'.rainbow.bold.underline))
     .catch(err => console.log(err));
   process.exit();
 });
@@ -33,12 +41,12 @@ process.on('SIGINT', () => {
 bot.login(token).catch(err => console.log(err));
 
 // log that the bot is ready (optionnal)
-bot.once('ready', () => console.log('Ready!'));
+bot.once('ready', () => console.log('Ready!'.rainbow.bold.underline));
 
 // when a user join a channel the bot will add 2 roles (specific for every server)
 bot.on('guildMemberAdd', member => {
   member.addRoles(roles)
-    .then(console.log('added roles \'DJ\' and \'apprenti CHAUSSURE\' to \'' + member.displayName + '\''))
+    .then(console.log('added roles '.green + '\'DJ\' and \'apprenti CHAUSSURE\' to \'' + colors.blue(member.displayName) + '\''))
     .catch(err => console.log(err));
 });
 
@@ -55,16 +63,12 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
   } else if (newUserChannel === undefined) {
     // User leaves a voice channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
-        oldUserChannel.delete()
-          .then(console.log('deleted \'' + oldUserChannel.name + '\''))
-          .catch(err => console.log(err));
+        deleteChannel(oldUserChannel);
       }
   } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
     // User moved channel
       if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
-        oldUserChannel.delete()
-          .then(console.log('deleted \'' + oldUserChannel.name + '\''))
-          .catch(err => console.log(err));
+        deleteChannel(oldUserChannel);
       }
 
     if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
