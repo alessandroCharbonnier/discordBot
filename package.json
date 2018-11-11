@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/feyleth/discordBot#readme",
   "dependencies": {
+    "colors": "^1.3.2",
     "discord.js": "github:discordjs/discord.js#11.4-dev"
   }
 }
