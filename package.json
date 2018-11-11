@@ -1,5 +1,5 @@
 {
-  "name": "alles",
+  "name": "aless",
   "version": "1.0.0",
   "description": "You can customize this bot. You only need to change the config.json file to make it work",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/feyleth/discordBot.git"
+    "url": "git+https://github.com/alessandrocharbonnier/discordBot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/feyleth/discordBot/issues"
+    "url": "https://github.com/alessandrocharbonnier/discordBot/issues"
   },
-  "homepage": "https://github.com/feyleth/discordBot#readme",
+  "homepage": "https://github.com/alessandrocharbonnier/discordBot#readme",
   "dependencies": {
     "colors": "^1.3.2",
     "discord.js": "github:discordjs/discord.js#11.4-dev"
