@@ -3,12 +3,12 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 //loading config file
-const { prefix, token, profs, channels, blackList, roles} = require('./config.json');
+const config = require('./config.json');
 
 // create a new channel with the noun of the parent category with a random name and place that channel in the appropriate category
 function createNewChannel(newMember, newUserChannel) {
   try {
-    let name = newUserChannel.name + '-' + profs[Math.floor(Math.random() * profs.length)];
+    let name = newUserChannel.name + '-' + config.profs[Math.floor(Math.random() * config.profs.length)];
 
     newMember.guild.createChannel(name, {type : 'voice' , parent : newUserChannel.parentID}).then((channel) => {
       console.log('created channel '.green + '\''+ colors.cyan(name) + '\'');
@@ -36,15 +36,19 @@ process.on('SIGINT', () => {
 });
 
 // connect the bot
-bot.login(token).catch(err => console.log(err));
+bot.login(config.token).catch(err => console.log(err));
 
 // log that the bot is ready (optionnal)
-bot.once('ready', () => console.log('Ready!'.rainbow.bold.underline));
+bot.once('ready', () => {
+  bot.user.setActivity("Fermez broser... Vite!");
+  bot.users.get(config.owner).send('I am now online :wink:');
+  console.log('Ready!'.rainbow.bold.underline);
+});
 
-// when a user join a channel the bot will add 2 roles (specific for every server)
+// when a user join a channel the bot will add 2 config.roles (specific for every server)
 bot.on('guildMemberAdd', member => {
-  member.addRoles(roles)
-    .then(console.log('added roles '.green + '\'DJ\' and \'apprenti CHAUSSURE\' to \'' + colors.blue(member.displayName) + '\''))
+  member.addconfig.roles(config.roles)
+    .then(console.log('added config.roles '.green + '\'DJ\' and \'apprenti CHAUSSURE\' to \'' + colors.blue(member.displayName) + '\''))
     .catch(err => console.log(err));
 });
 
@@ -55,21 +59,21 @@ bot.on('voiceStateUpdate', (oldMember, newMember) => {
 
   if (oldUserChannel === undefined && newUserChannel !== undefined) {
     // User Joins a voice channel
-    if (channels.includes(newUserChannel.name)) {
+    if (config.channels.includes(newUserChannel.name)) {
       createNewChannel(newMember, newUserChannel);
     }
   } else if (newUserChannel === undefined) {
     // User leaves a voice channel
-      if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
+      if (!config.channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !config.blackList.includes(oldUserChannel.name)) {
         deleteChannel(oldUserChannel);
       }
   } else if (oldUserChannel !== undefined && newUserChannel !== undefined) {
     // User moved channel
-      if (!channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !blackList.includes(oldUserChannel.name)) {
+      if (!config.channels.includes(oldUserChannel.name) && oldUserChannel.members.size === 0 && !config.blackList.includes(oldUserChannel.name)) {
         deleteChannel(oldUserChannel);
       }
 
-    if (channels.includes(newUserChannel.name) && !blackList.includes(newUserChannel.name)) {
+    if (config.channels.includes(newUserChannel.name) && !config.blackList.includes(newUserChannel.name)) {
       createNewChannel(newMember, newUserChannel);
     }
   }

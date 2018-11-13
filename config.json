@@ -1,6 +1,6 @@
 {
     "prefix": ":",
-    "token": "nop",
+    "token": "cake is a lie",
     "profs": ["Patoch", "MHR", "Pierre", "Denis", "Annabelle", "Luc", "Florent", "Didier",
                "Selma", "Zina", "Patricia", "Oleg", "Jeremy",
                "Sandrine", "Regis", "Anne-Gaelle", "Miembro",
@@ -8,5 +8,6 @@
                "A-preciser", "Fabrice", "Walid", "Quentin", "William", "intervenant 2"],
     "channels": ["CHAUSSURE", "e-sport", "programmation"],
     "blackList": ["CHASSE LE CARIBOU"],
-    "roles": ["499314917711675393", "366669559341645856"]
+    "roles": ["499314917711675393", "366669559341645856"],
+    "owner": "218071994258685953"
 }
