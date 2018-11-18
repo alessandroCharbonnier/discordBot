@@ -47,7 +47,7 @@ bot.once('ready', () => {
 
 // when a user join a channel the bot will add 2 config.roles (specific for every server)
 bot.on('guildMemberAdd', member => {
-  member.addconfig.roles(config.roles)
+  member.addRoles(config.roles)
     .then(console.log('added config.roles '.green + '\'DJ\' and \'apprenti CHAUSSURE\' to \'' + colors.blue(member.displayName) + '\''))
     .catch(err => console.log(err));
 });
