@@ -1,4 +1,4 @@
-#! /bin/node
+#!/usr/bin/env node
 const colors = require("colors");
 const Discord = require("discord.js");
 const bot = new Discord.Client();
