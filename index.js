@@ -46,7 +46,10 @@ bot.login(config.token).catch((err) => console.log(err));
 // log that the bot is ready (optional)
 bot.once("ready", () => {
 	bot.user.setActivity("Fermez browser... Vite!");
-	bot.users.get(config.owner).send("I am now online :wink:");
+	bot.users
+		.get(config.owner)
+		.send("I am now online :wink:")
+		.catch((err) => console.error(err));
 	console.log("Ready!".rainbow.bold.underline);
 });
 
