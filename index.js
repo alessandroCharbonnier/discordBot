@@ -13,8 +13,10 @@ function createNewChannel(newMember, newUserChannel) {
 
 		newMember.guild.createChannel(name, { type: "voice", parent: newUserChannel.parentID }).then((channel) => {
 			console.log("created channel ".green + "'" + colors.cyan(name) + "'");
-			newMember.setVoiceChannel(channel);
-			console.log("moved ".yellow + "'" + colors.blue(newMember.displayName) + "'" + " in ".yellow + "'" + colors.cyan(name) + "'");
+			newMember
+				.setVoiceChannel(channel)
+				.then(() => console.log("moved ".yellow + "'" + colors.blue(newMember.displayName) + "'" + " in ".yellow + "'" + colors.cyan(name) + "'"))
+				.catch((err) => console.error(err));
 		});
 	} catch (err) {
 		console.error(err);
@@ -52,7 +54,7 @@ bot.once("ready", () => {
 bot.on("guildMemberAdd", (member) => {
 	member
 		.addRoles(config.roles)
-		.then(console.log("added config.roles ".green + "'DJ' and 'apprenti CHAUSSURE' to '" + colors.blue(member.displayName) + "'"))
+		.then(console.log("added roles ".green + "'DJ' and 'apprenti CHAUSSURE' to '" + colors.blue(member.displayName) + "'"))
 		.catch((err) => console.log(err));
 });
 
