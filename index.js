@@ -41,23 +41,21 @@ process.on("SIGINT", () => {
 });
 
 // on message
-bot.on("message", message => {
-
-  if (message.content.toLowerCase().startsWith("!chaussure")) {
-    let role_name = "CHAUSSURE"
-    let role = message.guild.roles;
-    let role_obj = role.find(test => test.name == role_name);
-    if (role_obj == null) {
-      message.channel.send("le role " + role_name + " existe pas");
-      return;
-    }
-    let mention = message.mentions.users.first();
-    let guild = message.guild.fetchMember(mention).then( member => {
-      member.addRoles(role_obj)
-    });
-  }
-  
-})
+bot.on("message", (message) => {
+	if (message.content.toLowerCase().startsWith("!chaussure") && message.member.roles.some((r) => ["ADMIN CHAUSSURE"].includes(r.name))) {
+		let role_name = "CHAUSSURE";
+		let role = message.guild.roles;
+		let role_obj = role.find((test) => test.name == role_name);
+		if (role_obj == null) {
+			message.channel.send("le role " + role_name + " existe pas");
+			return;
+		}
+		let mention = message.mentions.users.first();
+		let guild = message.guild.fetchMember(mention).then((member) => {
+			member.addRoles(role_obj);
+		});
+	}
+});
 
 // connect the bot
 bot.login(config.token).catch((err) => console.log(err));
