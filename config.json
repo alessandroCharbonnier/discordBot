@@ -32,5 +32,7 @@
 	"channels": ["CHAUSSURE", "e-sport", "programmation"],
 	"blackList": ["CHASSE LE CARIBOU"],
 	"roles": ["499314917711675393", "366669559341645856"],
-	"owner": "218071994258685953"
+	"owner": "218071994258685953",
+	"onLaunchMessage": "I am now online :wink:",
+	"activity": "Fermez browser... Vite!"
 }
