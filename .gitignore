@@ -75,3 +75,6 @@ node_modules
 
 #visual studio packages
 .vs*
+
+#folder of downloaded images
+Memes_DUT_info
