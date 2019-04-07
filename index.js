@@ -8,9 +8,10 @@ const process = require("process");
 
 //loading config file
 const config = require("./config.json");
+const secret = require("./config_secret.json");
 
 // connect the bot
-bot.login(config.token).catch((err) => console.log(err));
+bot.login(secret.token).catch((err) => console.log(err));
 
 // log that the bot is ready (optional)
 bot.once("ready", () => {
