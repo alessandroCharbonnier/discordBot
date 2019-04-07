@@ -66,9 +66,6 @@ typings/
 *.jpeg
 *.JPG
 
-#config.json to protect token
-config.json
-
 #packages
 package*
 !package.json
@@ -78,3 +75,6 @@ node_modules
 
 #visual studio packages
 .vs*
+
+# config_secret passwords will no longer be pushed
+./config_secret.json
