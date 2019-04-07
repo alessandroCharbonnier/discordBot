@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const colors = require("colors");
 const Discord = require("discord.js");
 const bot = new Discord.Client();
@@ -45,13 +44,21 @@ bot.on("raw", (event) => {
 	if (events.hasOwnProperty(event.t) && event.d.emoji.name === "✅") {
 		if (event.d.user_id === config.owner && event.d.channel_id === "456543263625707520") {
 			if (event.t === "MESSAGE_REACTION_ADD") {
-				// TODO: add 'simple git' commands to push files to git repo
 				const channel = bot.channels.get(event.d.channel_id);
+
 				channel.fetchMessage(event.d.message_id).then((message) => {
 					const images = message.attachments.array();
+
 					images.forEach((image) => {
 						download(image.url, image.filename, () => {
 							console.log("Done");
+							require("simple-git")("./Memes_DUT_info/")
+								.add(image.filename)
+								.commit("image " + image.filename + " added")
+								.push("origin", "master")
+								.exec(() => {
+									console.log(image.filename + " pushed");
+								});
 						});
 					});
 				});
