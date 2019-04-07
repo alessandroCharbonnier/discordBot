@@ -77,4 +77,4 @@ node_modules
 .vs*
 
 # config_secret passwords will no longer be pushed
-./config_secret.json
+config_secret.json
