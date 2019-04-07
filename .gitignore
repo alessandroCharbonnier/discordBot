@@ -62,6 +62,9 @@ typings/
 
 #images
 *.jpg
+*.png
+*.jpeg
+*.JPG
 
 #config.json to protect token
 config.json
@@ -75,6 +78,3 @@ node_modules
 
 #visual studio packages
 .vs*
-
-#folder of downloaded images
-Memes_DUT_info
