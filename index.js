@@ -61,7 +61,14 @@ bot.on("message", (message) => {
 
 // when a user join a channel the bot will add 2 config.roles (specific for every server)
 bot.on("guildMemberAdd", (member) => {
-    member.addRoles(config.roles).catch((err) => console.log(err));
+    // IA - School
+    if (member.guild.id == "647453836151226380") {
+        member.addRoles(["647508509323165707"]).catch((err) => console.log(err));
+
+        // Chaussure
+    } else if (member.guild.id == "362958435291103233") {
+        member.addRoles(config.roles).catch((err) => console.log(err));
+    }
 });
 
 // when a user join/quit/move channel
