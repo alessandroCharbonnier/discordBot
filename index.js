@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-
+const moment = require("moment");
 //loading config file
 const config = require("./config.json");
 const secret = require("./config_secret.json");
