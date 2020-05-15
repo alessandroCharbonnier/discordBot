@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const process = require("process");
 
 //loading config file
 const config = require("./config.json");
@@ -31,7 +30,10 @@ function ownerMessage(message, logValue) {
 
 // log that the bot is ready (optional)
 bot.once("ready", () => {
-    bot.user.setActivity(config.activity);
+    bot.user.setActivity("confinement depuis " + moment("2020-03-17-12-00", "YYYY-MM-DD-HH-mm").fromNow().slice(0, -3));
+    setInterval(() => {
+        bot.user.setActivity("confinement depuis " + moment("2020-03-17-12-00", "YYYY-MM-DD-HH-mm").fromNow().slice(0, -3));
+    }, 1000 * 60 * 60);
     owner = bot.users.get(config.owner);
     ownerMessage(config.onLaunchMessage);
 });
@@ -61,13 +63,6 @@ function deleteChannel(oldUserChannel) {
         .catch((err) => console.error(err));
 }
 
-// exit the program is the user hits ctrl+c
-process.on("SIGINT", () => {
-    ownerMessage("``` END ```");
-    bot.destroy().catch((err) => console.error(err));
-    process.exit();
-});
-
 // on message
 bot.on("message", (message) => {
     if (message.content.toLowerCase().startsWith("!chaussure") && message.member.roles.some((r) => ["ADMIN CHAUSSURE"].includes(r.name))) {
@@ -82,24 +77,12 @@ bot.on("message", (message) => {
         message.guild.fetchMember(mention).then((guildMember) => {
             guildMember.addRoles(role_obj);
         });
-    } else if (message.content.toLowerCase().startsWith("!rename_me")) {
-        try {
-            message.member.setNickname(message.content.replace("!rename_me ", "")).then(ownerMessage(`Renamed \`\`${message.member.user.tag}\`\` to \`\`${message.content.replace("!rename_me ", "")}\`\``, 0));
-        } catch (error) {}
     }
 });
 
 // when a user join a channel the bot will add 2 config.roles (specific for every server)
 bot.on("guildMemberAdd", (guildMember) => {
-    // IA - School
-    if (guildMember.guild.id == "647453836151226380") {
-        guildMember.addRoles(["647508509323165707"]).catch((err) => console.error(err));
-        guildMember.send("Bienvenu sur le Discord de L'IA School\n N'oublie pas de lire la partie 'Les-nouveaux'!").then(() => {
-            ownerMessage(`Sent welcome message to \`\`${guildMember.user.tag}\`\``, 0);
-        });
-
-        // Chaussure
-    } else if (guildMember.guild.id == "362958435291103233") {
+    if (guildMember.guild.id == "362958435291103233") {
         guildMember.addRoles(config.roles).catch((err) => console.error(err));
     }
 });
@@ -127,109 +110,6 @@ bot.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (config.channels.includes(newUserChannel.name) && !config.blackList.includes(newUserChannel.name)) {
             createNewChannel(newMember, newUserChannel);
-        }
-    }
-});
-
-const events = {
-    MESSAGE_REACTION_ADD: "messageReactionAdd",
-    MESSAGE_REACTION_REMOVE: "messageReactionRemove"
-};
-
-// on reactions added to message
-bot.on("raw", (event) => {
-    if (events.hasOwnProperty(event.t)) {
-        // MATH / PROGRAMMATION
-        if (event.d.message_id == "673585200566894624") {
-            let guild = bot.guilds.get("647453836151226380");
-            guild.fetchMember(event.d.user_id).then((guildMember) => {
-                if (event.t === "MESSAGE_REACTION_ADD") {
-                    if (event.d.emoji.name === "1️⃣") {
-                        guildMember
-                            .addRoles(["647506999780573185"])
-                            .then(ownerMessage(`Added role \`\` niveau 1 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "2️⃣") {
-                        guildMember
-                            .addRoles(["647507064616255496"])
-                            .then(ownerMessage(`Added role \`\` niveau 2 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    }
-                } else if (event.t === "MESSAGE_REACTION_REMOVE") {
-                    if (event.d.emoji.name === "1️⃣") {
-                        guildMember
-                            .removeRole("647506999780573185")
-                            .then(ownerMessage(`Removed role \`\` niveau 1 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "2️⃣") {
-                        guildMember
-                            .removeRole("647507064616255496")
-                            .then(ownerMessage(`Removed role \`\` niveau 2 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    }
-                }
-            });
-            // CLASSE
-        } else if (event.d.message_id == "673585240870223883") {
-            let guild = bot.guilds.get("647453836151226380");
-            guild.fetchMember(event.d.user_id).then((guildMember) => {
-                if (event.t === "MESSAGE_REACTION_ADD") {
-                    if (event.d.emoji.name === "1️⃣") {
-                        guildMember
-                            .addRoles(["647506640320331786"])
-                            .then(ownerMessage(`Added role \`\` B1 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "2️⃣") {
-                        guildMember
-                            .addRoles(["647506729017540637"])
-                            .then(ownerMessage(`Added role \`\` B2 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "3️⃣") {
-                        guildMember
-                            .addRoles(["647506777260425217"])
-                            .then(ownerMessage(`Added role \`\` B3 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "4️⃣") {
-                        guildMember
-                            .addRoles(["647506852187471884"])
-                            .then(ownerMessage(`Added role \`\` M1 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "5️⃣") {
-                        guildMember
-                            .addRoles(["647506905832620082"])
-                            .then(ownerMessage(`Added role \`\` M2 \`\` to \`\`${guildMember.user.tag}\`\``, 0))
-                            .catch((err) => console.error(err));
-                    } else {
-                    }
-                } else if (event.t === "MESSAGE_REACTION_REMOVE") {
-                    if (event.d.emoji.name === "1️⃣") {
-                        guildMember
-                            .removeRole("647506640320331786")
-                            .then(ownerMessage(`Removed role \`\` B1 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "2️⃣") {
-                        guildMember
-                            .removeRole("647506729017540637")
-                            .then(ownerMessage(`Removed role \`\` B2 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "3️⃣") {
-                        guildMember
-                            .removeRole("647506777260425217")
-                            .then(ownerMessage(`Removed role \`\` B3 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "4️⃣") {
-                        guildMember
-                            .removeRole("647506852187471884")
-                            .then(ownerMessage(`Removed role \`\` M1 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    } else if (event.d.emoji.name === "5️⃣") {
-                        guildMember
-                            .removeRole("647506905832620082")
-                            .then(ownerMessage(`Removed role \`\` M2 \`\` from \`\`${guildMember.user.tag}\`\``, 1))
-                            .catch((err) => console.error(err));
-                    }
-                }
-            });
         }
     }
 });
